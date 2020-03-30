@@ -10,15 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_215933) do
+ActiveRecord::Schema.define(version: 2020_03_30_172607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "measure_dates", force: :cascade do |t|
+    t.date "date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_measure_dates_on_user_id"
+  end
 
   create_table "measures", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "measure_date_id", null: false
+    t.index ["measure_date_id"], name: "index_measures_on_measure_date_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,5 +48,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_215933) do
     t.index ["measure_id"], name: "index_values_on_measure_id"
   end
 
+  add_foreign_key "measure_dates", "users"
+  add_foreign_key "measures", "measure_dates"
   add_foreign_key "values", "measures"
 end

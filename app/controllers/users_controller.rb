@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
+    @measureDates = @user.measure_dates
     json_response(@user)
   end
 
