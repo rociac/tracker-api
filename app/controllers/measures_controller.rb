@@ -1,4 +1,5 @@
 class MeasuresController < ApplicationController
+  before_action :authenticate_user
   before_action :set_measure, only: [:show, :update, :destroy]
 
   def index
@@ -35,3 +36,4 @@ class MeasuresController < ApplicationController
     @measure = Measure.find(params[:id])
   end
 end
+

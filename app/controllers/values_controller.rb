@@ -1,4 +1,5 @@
 class ValuesController < ApplicationController
+  before_action :authenticate_user
   before_action :set_measure
   before_action :set_measure_value, only: [:show, :update, :destroy]
 
@@ -39,3 +40,4 @@ class ValuesController < ApplicationController
     @value = @measure.values.find_by!(id: params[:id]) if @measure
   end
 end
+
